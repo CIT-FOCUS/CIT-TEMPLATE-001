@@ -1,0 +1,16 @@
+{
+    "applications": [
+        {
+            "title": "Business application Studio (BAS)",
+            "description": "Develop fancy applications in UI5 using BAS as your IDE",
+            "icon": "sap-icon://source-code",
+            "link": "https://link-to-app-com"
+        },
+        {
+            "title": "Cloud Process Integration (CPI)",
+            "description": "iFlows to integrate different things with each other you can generate here",
+            "icon": "sap-icon://disconnected",
+            "link": "https://link-to-app-com"
+        }        
+    ]
+}

@@ -1,0 +1,16 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="dummyUI5.controller.main" displayBlock="true">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+					    <List items="{path: 'apps>/applications'}" headerText="Applications on our BTP Account" id="list1">
+                            <StandardListItem title="{apps>title}" type="Navigation" description="{apps>description}" press="onListItemPress" tooltip="{apps>link}" icon="{apps>icon}">
+                            </StandardListItem>
+					    </List>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

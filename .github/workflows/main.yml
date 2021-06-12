@@ -1,0 +1,72 @@
+# CIT Focus Github-Action pipeline
+# Author: Cedric Heisel
+# V1.0.2 - 2021-06-12
+
+name: CIT-Focus-CI-Pipeline
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:  
+  build-mta-job:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Download the mbt build tool from github
+        run: |
+          wget https://github.com/SAP/cloud-mta-build-tool/releases/download/v1.1.0/cloud-mta-build-tool_1.1.0_Linux_amd64.tar.gz 
+          tar xvzf cloud-mta-build-tool_1.1.0_Linux_amd64.tar.gz 
+          sudo cp mbt /usr/local/bin/
+      - name: Create the mtar file
+        run: |
+          echo Create the mtar file now
+          mbt build -p=cf --mtar=$GITHUB_RUN_ID.mtar
+      
+      # upload the result as artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: mtar
+          path: mta_archives/*.mtar
+          retention-days: 14
+
+  deploy-mta-to-cf-job:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # define the dependency to the build step
+    needs: [build-mta-job]
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: mtar
+          path: mta_archives
+    
+      - name: Use cf-cli action to deploy
+        uses: citizen-of-planet-earth/cf-cli-action@master
+        with:
+          cf_api: https://api.cf.eu10.hana.ondemand.com
+          cf_username: ${{ secrets.CF_USER }}
+          cf_password: ${{ secrets.CF_PASSWORD }}
+          cf_org: ${{ secrets.CF_ORG }}
+          cf_space: ${{ secrets.CF_SPACE }}
+          command: |
+            install-plugin multiapps -f
+            cf deploy mta_archives/$GITHUB_RUN_ID.mtar -f

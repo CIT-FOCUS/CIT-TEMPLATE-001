@@ -1,0 +1,38 @@
+# CIT Focus Github-Action pipeline
+# Author: Cedric Heisel
+# V1.1.3 - 2021-06-12
+specVersion: '2.3'
+metadata:
+  name: dummy-ui5-tooling
+type: application
+framework:
+  name: SAPUI5
+  version: "1.89.0"
+  libraries: # required libs are mentioned on manifest.json > sap.ui5.dependencies
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ui.layout
+    - name: themelib_sap_fiori_3
+server: # with ui5 serve we start the server deamon and he injects express with these custom middlewares
+  customMiddleware:
+  - name: ui5-middleware-simpleproxy
+    mountPath: /resources/
+    afterMiddleware: compression
+    configuration:
+      baseUri: https://sapui5.hana.ondemand.com/resources/
+  - name: fiori-tools-appreload
+    afterMiddleware: compression
+    configuration:
+      port: 35729
+      path: webapp      
+builder:
+  resources:
+    excludes:
+      - "/test/**"
+      - "/localService/**"
+  customTasks:
+  - name: webide-extension-task-updateManifestJson
+    beforeTask: generateManifestBundle
+    configuration:
+      appFolder: webapp
+      destDir: dist

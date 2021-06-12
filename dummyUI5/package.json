@@ -1,0 +1,39 @@
+{
+  "name": "dummy-ui5-tooling",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node approuter-start.js",
+    "start-local": "ui5 serve",
+    "build:cf": "ui5 build --all"
+  },
+  "engines": {
+    "node": "12.x.x"
+  },
+  "author": "Heisel, Cedric - CIT Focus eG",
+  "license": "ISC",
+  "devDependencies": {
+    "@sap/ui5-builder-webide-extension": "1.0.x",
+    "@sap/ux-ui5-tooling": "^1",
+    "@ui5/cli": "^2.10.1",
+    "@ui5/fs": "^2.0.6",
+    "@ui5/logger": "^2.0.1",
+    "mbt": "^1.0.15",
+    "rimraf": "3.0.2",
+    "ui5-middleware-simpleproxy": "^0.7.2",
+    "ui5-task-zipper": "^0.4.3"
+  },
+  "ui5": {
+    "dependencies": [
+      "@sap/ux-ui5-tooling",
+      "@sap/ui5-builder-webide-extension",
+      "ui5-middleware-simpleproxy",
+      "ui5-task-zipper",
+      "mbt"
+    ]
+  },
+  "dependencies": {
+    "@sap/approuter": "^10.2.0",
+    "jwt-decode": "*"
+  }
+}

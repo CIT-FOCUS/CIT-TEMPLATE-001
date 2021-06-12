@@ -1,0 +1,29 @@
+stages:
+ - build
+ - deploy
+
+build-mta-job:
+  stage: build
+  image: node:latest
+  artifacts:
+    paths:
+    - mta_archives/$CI_PROJECT_NAME.mtar
+    expire_in: 1 week
+  script: 
+    - node -v
+    - wget https://github.com/SAP/cloud-mta-build-tool/releases/download/v1.1.0/cloud-mta-build-tool_1.1.0_Linux_amd64.tar.gz 
+    - tar xvzf cloud-mta-build-tool_1.1.0_Linux_amd64.tar.gz 
+    - sudo cp mbt /usr/local/bin/ 
+    - mbt build -p=cf --mtar=$CI_PROJECT_NAME.mtar
+
+deploy-mta-to-cf-job:
+  stage: deploy
+  image: node:latest
+  dependencies: 
+    - build-mta-job
+  script:
+    - echo $CIT_TRIAL_CF_USER
+    - cf install-plugin multiapps -f
+    - cf login -u $CIT_TRIAL_CF_USER -p $CIT_TRIAL_CF_PW -a $CIT_TRIAL_CF_API -o $CIT_TRIAL_CF_ORG -s $CF_TRIAL_CF_SPACE && cf deploy mta_archives/$CI_PROJECT_NAME.mtar -f
+
+
