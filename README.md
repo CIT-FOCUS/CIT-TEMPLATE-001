@@ -29,6 +29,6 @@ You're required to maintain the mentioned variables / secret sinside your CI/CD 
 Please check licences for each npm module on your own, before using it on your production.  
 Come back to us, if you need guidance or more information about it.  
 
-CIT Focus eG
-We're a collective of IT experts who do integrate, implement, secure and consult companies on their SAP Cloud journeys!
-[www.cit-focus.com  ](http://www.cit-focus.com)
+CIT Focus eG  
+We're a collective of IT experts who do integrate, implement, secure and consult companies on their SAP Cloud journeys!  
+[www.cit-focus.com](http://www.cit-focus.com)
