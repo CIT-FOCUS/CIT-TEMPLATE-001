@@ -20,8 +20,8 @@ The approuter is acting as kind of wrapper around the html5 webapp.
 
 ## Continuous Integration / Continuous Delivery
 This repository is containing 2 easy pipelines. Within both you can deploy to a Cloud Foundry environment on a BTP. 
-GitLab: Find file ".gitlab-ci.yml" in the root path  
-GitHub: Find file "main.yml" inside ".github/workflows/" path  
+* GitLab: Find file ".gitlab-ci.yml" in the root path  
+* GitHub: Find file "main.yml" inside ".github/workflows/" path  
 
 You're required to maintain the mentioned variables / secret sinside your CI/CD tool of choice.  
 
