@@ -8,20 +8,20 @@
     "build:cf": "ui5 build --all"
   },
   "engines": {
-    "node": "12.x.x"
+    "node": "14.x.x"
   },
   "author": "Heisel, Cedric - CIT Focus eG",
   "license": "ISC",
   "devDependencies": {
     "@sap/ui5-builder-webide-extension": "1.0.x",
-    "@sap/ux-ui5-tooling": "^1",
-    "@ui5/cli": "^2.10.1",
+    "@sap/ux-ui5-tooling": "^1.4.3",
+    "@ui5/cli": "^2.14.1",
     "@ui5/fs": "^2.0.6",
     "@ui5/logger": "^2.0.1",
-    "mbt": "^1.0.15",
+    "mbt": "^1.2.7",
     "rimraf": "3.0.2",
-    "ui5-middleware-simpleproxy": "^0.7.2",
-    "ui5-task-zipper": "^0.4.3"
+    "ui5-middleware-simpleproxy": "^0.7.5",
+    "ui5-task-zipper": "^0.4.7"
   },
   "ui5": {
     "dependencies": [
@@ -33,7 +33,7 @@
     ]
   },
   "dependencies": {
-    "@sap/approuter": "^10.2.0",
+    "@sap/approuter": "^10.10.2",
     "jwt-decode": "*"
   }
 }
